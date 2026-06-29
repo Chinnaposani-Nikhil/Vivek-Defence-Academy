@@ -35,7 +35,9 @@ const Enquiries = () => {
   // Filter & Search Logic
   const filteredEnquiries = useMemo(() => {
     return enquiries.filter(enq => {
-      const d = enq.createdAt?.toDate ? enq.createdAt.toDate() : new Date();
+      const d = enq.createdAt 
+        ? (enq.createdAt.toDate ? enq.createdAt.toDate() : new Date(enq.createdAt)) 
+        : new Date();
       const dateString = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }).toLowerCase();
       
       const matchesSearch = 
@@ -112,7 +114,9 @@ const Enquiries = () => {
       </span>
     )},
     { header: "Date", accessor: "date", render: (row) => {
-      const d = row.createdAt?.toDate ? row.createdAt.toDate() : new Date();
+      const d = row.createdAt 
+        ? (row.createdAt.toDate ? row.createdAt.toDate() : new Date(row.createdAt)) 
+        : new Date();
       return <span className="text-gray-500">{d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
     }},
     { header: "Status", accessor: "status", render: (row) => {
