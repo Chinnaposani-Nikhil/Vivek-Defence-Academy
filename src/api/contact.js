@@ -11,7 +11,8 @@ export default async function handler(req, res) {
 
     // Save to Firebase Firestore
     try {
-      await db.collection('enquiries').add({
+      console.log("Saving to Firestore...", { name, course });
+      const docRef = await db.collection('enquiries').add({
         name,
         mobile,
         email: email || '',
@@ -20,9 +21,9 @@ export default async function handler(req, res) {
         createdAt: new Date().toISOString(),
         status: 'new'
       });
-      console.log('Enquiry saved to Firestore successfully.');
+      console.log('Enquiry saved to Firestore successfully with ID:', docRef.id);
     } catch (dbError) {
-      console.error('Error saving to Firestore:', dbError);
+      console.error('!!!!! Error saving to Firestore:', dbError);
       // We continue even if DB save fails to at least try sending the email
     }
 
