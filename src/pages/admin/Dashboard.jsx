@@ -93,7 +93,9 @@ const Dashboard = () => {
                 </tr>
               ) : (
                 recentEnquiries.map((row, i) => {
-                  const dateObj = row.createdAt?.toDate ? row.createdAt.toDate() : new Date();
+                  const dateObj = row.createdAt 
+                    ? (row.createdAt.toDate ? row.createdAt.toDate() : new Date(row.createdAt))
+                    : new Date();
                   const dateStr = dateObj.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
                   const isNew = row.status?.toLowerCase() === 'new' || !row.status;
 
