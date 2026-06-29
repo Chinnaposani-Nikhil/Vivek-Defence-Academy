@@ -4,11 +4,23 @@ export const getDb = () => {
   if (!getApps().length) {
     try {
       // Create credential object from environment variables
+      let privateKey = process.env.FIREBASE_PRIVATE_KEY;
+      if (privateKey) {
+        // Strip leading/trailing quotes if they accidentally pasted them in Vercel
+        privateKey = privateKey.replace(/(^['"]|['"]$)/g, '').trim();
+        // Handle escaped newlines
+        privateKey = privateKey.replace(/\\n/g, '\n');
+      }
+      
+      let clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+      if (clientEmail) {
+        clientEmail = clientEmail.replace(/(^['"]|['"]$)/g, '').trim();
+      }
+
       const credentialParams = {
         projectId: process.env.FIREBASE_PROJECT_ID,
-        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-        // Private key needs to handle escaped newlines in environment variables
-        privateKey: process.env.FIREBASE_PRIVATE_KEY ? process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n') : undefined,
+        clientEmail: clientEmail,
+        privateKey: privateKey,
       };
 
       initializeApp({
