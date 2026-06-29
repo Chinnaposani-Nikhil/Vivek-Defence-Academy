@@ -12,7 +12,6 @@ dist
 dist-ssr
 *.local
 service-account.json
-firebase-account.md
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -24,6 +23,8 @@ firebase-account.md
 *.sln
 *.sw?
 .env    
-.env
+firebase - account.md
+firebase*.md
+firebase - account.md
 .env.local
 firebase-adminsdk*.json
